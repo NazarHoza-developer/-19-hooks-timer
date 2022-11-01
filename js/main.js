@@ -1,96 +1,96 @@
-const hourElement = document.querySelector('.hour')
-const minuteElement = document.querySelector('.minute')
-const secondElement = document.querySelector('.second')
-const millisecondElement = document.querySelector('.millisecond')
-
-const startButton = document.querySelector('.start')
-const pauseButton = document.querySelector('.pause')
-const stopButton = document.querySelector('.stop')
-const newButton = document.querySelector('.new')
-
-startButton.addEventListener('click', ()=> {
-    clearInterval(interval)
-    interval = setInterval(startTimer, 10)
+const getS = selector => document.querySelector(selector)
+setInterval(() => {
+    let data = new Date()
+    let mm = data.getMinutes()
+    let ss = data.getSeconds()
+    if (ss < 10) ss = '0' + ss
+    if (mm < 10) mm = '0' + mm
 })
 
-pauseButton.addEventListener('click', ()=>{
-    clearInterval(interval)
-    interval = setInterval(startTimer, 10)
+let min = '00'
+let sec = '00'
+let time
+let leftNum = getS('.big-num').innerHTML;
+let rightNum = 0;
+let timer_down;
+
+getS('.minus').addEventListener('click', () => {
+    let m = +getS('.big-num').innerHTML - 1
+    if (getS('.big-num').innerHTML <= 10 && getS('.big-num').innerHTML > 0) {
+        getS('.big-num').innerHTML = '0' + m
+    } else {
+        getS('.big-num').innerHTML = m
+    }
+    getS('.plus').classList.remove('hover')
+    getS('.minus').classList.add('hover')
 })
 
-
-stopButton.addEventListener('click', ()=>{
-    clearInterval(interval)
-    clearFields()   
-} )
-
-
-newButton.addEventListener('click', () => {
-    clearInterval(interval)
-    counter++
-    const results = document.querySelector('.results')
-    const block = document.createElement('div')
-    block.classList.add('results__info')
-    block.innerText = `Result: ${hour}:${minute}:${second}:${millisecond}`
-    results.append(block)
-    clearFields()
-    clearInterval(interval)
-    interval = setInterval(startTimer, 10)
-
-
+getS('.plus').addEventListener('click', () => {
+    let p = +getS('.big-num').innerHTML + 1
+    if (getS('.big-num').innerHTML < 9 && getS('.big-num').innerHTML >= 0) {
+        getS('.big-num').innerHTML = '0' + p
+    } else {
+        getS('.big-num').innerHTML = p
+    }
+    getS('.plus').classList.add('hover')
+    getS('.minus').classList.remove('hover')
 })
 
+getS('.startT').addEventListener('click', function () {
+    if (getS('.big-num').innerHTML < 10) {
+        getS('.left').innerHTML = '0' + (getS('.big-num').innerHTML)
+    } else {
+        getS('.left').innerHTML = getS('.big-num').innerHTML
+    }
+    getS('.left').innerHTML = getS('.big-num').innerHTML
+    start2Timer();
+    getS('.startT').disabled = true;
+    getS('.stopT').disabled = false;
+    getS('.resetT').disabled = true;
+    getS('.startT').classList.add('hover')
+    getS('.resetT').classList.remove('hover')
+    getS('.stopT').classList.remove('hover')
+});
 
-let hour = 00,
-    minute = 00,
-    second = 00,
-    millisecond = 00,
-    interval
-    counter = 0
-function startTimer() {
-    millisecond++
-    if(millisecond < 9) {
-        millisecondElement.innerText = "0" + millisecond
-    }
-    if(millisecond > 9) {
-        millisecondElement.innerText = millisecond
-    }
-    if(millisecond > 99) {
-        second++
-        secondElement.innerText = "0" + second
-        millisecond = 0
-        millisecondElement.innerText = "0" + millisecond
-    }
-    if(second) {
-        secondElement.innerText = "0" + second
-    }
-    if(second > 9 ) {
-        secondElement.innerText = second
-    }
-    if(second > 59){
-        minute++
-        minuteElement.innerText = "0" - minute
-        second = 0
-        secondElement.innerText = "0" - second
-    }
+getS('.stopT').addEventListener('click', function () {
+    clearTimeout(timer_down);
+    getS('.startT').disabled = false;
+    getS('.stopT').disabled = true;
+    getS('.resetT').disabled = false;
+    getS('.startT').classList.remove('hover')
+    getS('.resetT').classList.remove('hover')
+    getS('.stopT').classList.add('hover')
+});
 
+getS('.resetT').addEventListener('click', function () {
+    leftNum = 0;
+    rightNum = 0;
+    document.querySelector('.left').innerHTML = '00';
+    document.querySelector('.right', ).innerHTML = '00';
+    getS('.startT').classList.remove('hover')
+    getS('.resetT').classList.add('hover')
+    getS('.stopT').classList.remove('hover')
+});
 
-    if(minute > 9){
-        minuteElement.innerText = minute
-    }
-
-
-    if(hour > 9){
-        minuteElement.innerText = hour
-    }
-}
-function clearFields(){
-    hour = 00
-    minute = 00
-    second = 00
-    millisecond = 00
-    hourElement.textContent = "00"
-    minuteElement.textContent = "00"
-    secondElement.textContent = "00"
-    millisecondElement.textContent = "00"
+function start2Timer() {
+    leftNum = getS('.left').innerHTML;
+    timer_down = setTimeout(function () {
+        rightNum--;
+        if (rightNum < 0) {
+            rightNum = 59
+            leftNum--;
+            if (leftNum < 10) {
+                leftNum = "0" + leftNum;
+            }
+            getS('.left').innerHTML = leftNum;
+            if (leftNum == 0) {
+                location.reload()
+            }
+        }
+        if (rightNum < 10) {
+            rightNum = "0" + rightNum;
+        }
+        getS('.right').innerHTML = rightNum;
+        start2Timer();
+    }, 1000);
 }

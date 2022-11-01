@@ -9,40 +9,26 @@
 </head>
 <body>
     <p>#19-hooks-timer</p>
-    
-    <div class="container">
-        <div class="timer">
-            <div class="timer__block">
-                <div class="time hour">00</div>
-                <div class="title">Hours</div>
-            </div>
-
-            <div class="timer__block">
-                <div class="time minute">00</div>
-                <div class="title">Minutes</div>
-            </div>
-
-            <div class="timer__block">
-                <div class="time second">00</div>
-                <div class="title">Seconds</div>
-            </div>
-
-            <div class="timer__block">
-                <div class="time millisecond">00</div>
-                <div class="title">Milliseconds</div>
+    <div class="timer">
+        <div class="one_block">
+            <div class="big-num">25</div>
+            <div class="txt">minutes</div>
+            <div class="two">
+                <button class="minus">-</button>
+                <button class="plus">+</button>
             </div>
         </div>
-        <div class="buttons">
-            <button class="button start">Start</button>
-            <button class="button pause">Pause</button>
-            <button class="button stop">Stop</button>
-            <button class="button new">New</button>
+        <div class="time">
+            <div class="temp">
+                <span class="left">00</span>:<span class="right">00</span>
+            </div>
+            <div class="buttomT">
+                <button class="startT">start</button>
+                <button class="stopT">stop</button>
+                <button class="resetT">reset</button>
+            </div>
         </div>
     </div>
-    <div class="results__block">
-        <div class="results__title">Result</div>
-        <div class="results"></div>
-    </div>
-    <script src="js/main.js"></script>
+    <script src="./js/main.js"></script>
 </body>
 </html>
