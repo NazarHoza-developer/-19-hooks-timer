@@ -113,3 +113,14 @@ button{
 .buttomT{
   margin-top: 40px;
 }
+
+.line {
+  
+  
+}
+.move-line {
+  width: 1000px;
+  height: 10px;
+  color: #000214;
+  background-color: aqua;
+}

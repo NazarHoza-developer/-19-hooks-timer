@@ -72,7 +72,11 @@ getS('.resetT').addEventListener('click', function () {
     getS('.stopT').classList.remove('hover')
 });
 
+let moveLine = document.getElementsByClassName('move-name');
+
+
 function start2Timer() {
+    // moveLine.style.width = moveLine.style.width - rightNum;
     leftNum = getS('.left').innerHTML;
     timer_down = setTimeout(function () {
         rightNum--;
@@ -86,6 +90,7 @@ function start2Timer() {
             if (leftNum == 0) {
                 location.reload()
             }
+        
         }
         if (rightNum < 10) {
             rightNum = "0" + rightNum;
@@ -94,3 +99,4 @@ function start2Timer() {
         start2Timer();
     }, 1000);
 }
+
